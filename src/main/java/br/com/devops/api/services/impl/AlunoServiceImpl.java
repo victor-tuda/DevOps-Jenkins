@@ -38,6 +38,18 @@ public class AlunoServiceImpl implements AlunoService {
         return alunoRepository.save(mapper.map(obj, Aluno.class));
     }
 
+    @Override
+    public Aluno update(AlunoDTO obj) {
+        findByEmail(obj);
+        return alunoRepository.save(mapper.map(obj, Aluno.class));
+    }
+
+    @Override
+    public void delete(Integer id) {
+        findById(id);
+        alunoRepository.deleteById(id);
+    }
+
     private void findByEmail(AlunoDTO obj) {
         Optional<Aluno> aluno = alunoRepository.findByEmail(obj.getEmail());
         if (aluno.isPresent()) {

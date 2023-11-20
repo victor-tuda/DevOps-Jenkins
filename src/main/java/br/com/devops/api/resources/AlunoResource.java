@@ -43,4 +43,17 @@ public class AlunoResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<AlunoDTO> update(@PathVariable Integer id, @RequestBody AlunoDTO obj) {
+        obj.setId(id);
+        Aluno newAluno = alunoService.update(obj);
+        return ResponseEntity.ok().body(mapper.map(newAluno, AlunoDTO.class));
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<AlunoDTO> delete(@PathVariable Integer id) {
+        alunoService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

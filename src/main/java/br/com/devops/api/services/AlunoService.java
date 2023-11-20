@@ -9,5 +9,7 @@ public interface AlunoService {
     Aluno findById(Integer id );
     List<Aluno> findAll();
     Aluno create(AlunoDTO obj);
+    Aluno update(AlunoDTO obj);
+    void delete(Integer id);
 
 }
