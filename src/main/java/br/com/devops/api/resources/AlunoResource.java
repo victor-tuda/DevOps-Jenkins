@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping(value = "/aluno")
 public class AlunoResource {
@@ -25,5 +28,12 @@ public class AlunoResource {
 
         return ResponseEntity.ok().body(mapper.map(alunoService.findById(id), AlunoDTO.class));
 
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AlunoDTO>> findAll() {
+        List<Aluno> list = alunoService.findAll();
+        List<AlunoDTO> listDTO = list.stream().map(x -> mapper.map(x, AlunoDTO.class)).toList();
+        return ResponseEntity.ok().body(listDTO);
     }
 }
