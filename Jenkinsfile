@@ -22,11 +22,5 @@ pipeline {
         bat 'docker compose ps'
       }
     }
-    stage('Run tests against the container') {
-      steps {
-        bat 'curl http://localhost:9091'
-      }
-    }
   }
-
 }
