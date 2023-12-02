@@ -1,6 +1,14 @@
 FROM openjdk:17.0.1
 
-WORKDIR ./
-COPY . .
+WORKDIR /app
+
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+
+RUN ./mvnw dependency:resolve
+
+COPY src ./src
+
 EXPOSE 9090
-CMD java -XX:+UseContainerSupport -Xmx512m -Dserver.port=9090 -jar api-0.0.1-SNAPSHOT.jar
+
+CMD ["./mvnw", "spring-boot:run"]
